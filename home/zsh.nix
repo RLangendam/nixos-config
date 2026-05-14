@@ -5,7 +5,7 @@
     shellAliases = {
       ll = "ls -lah";
     };
-    initExtra = ''
+    initContent = ''
       eval "$(direnv hook zsh)"
     '';
   };

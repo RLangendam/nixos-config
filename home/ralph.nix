@@ -5,12 +5,16 @@
 
   programs.git = {
     enable = true;
-    userName = "Ralph Langendam";
-    userEmail = "rlangendam@gmail.com";
+    settings = {
+      user = {
+        name = "Ralph Langendam";
+        email = "rlangendam@gmail.com";
+      };
+    };
   };
 
   programs.zsh.enable = true;
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     eval "$(direnv hook zsh)"
   '';
 
