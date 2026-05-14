@@ -61,5 +61,8 @@
     ./neovim.nix
     ./zsh.nix
     ./git.nix
+    ./wezterm.nix
+    ./tmux.nix
+    ./zellij.nix
   ];
 }
