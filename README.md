@@ -1,0 +1,247 @@
+# Ralph's NixOS Flake Configuration
+
+A modern, modular NixOS configuration using flakes with:
+- **Home Manager** for user environment management
+- **Neovim** (lazy.nvim) with Rust LSP and full IDE setup
+- **Terminal Tools**: WezTerm, Zellij, tmux, and zsh with direnv integration
+- **Rust Development**: rust-analyzer, cargo, clippy, rustfmt, and OCI/container support
+- **sops-nix** for encrypted secret management
+
+## Repository Structure
+
+```
+.
+├── flake.nix                    # Main flake configuration with all inputs
+├── flake.lock                   # Locked versions of all dependencies
+├── hosts/
+│   └── desktop/                 # Desktop host configuration
+│       ├── configuration.nix     # Main host config (imports modules)
+│       ├── hardware-configuration.nix  # Generated hardware scan
+│       └── configuration-old.nix # Legacy config (kept for reference)
+├── home/
+│   ├── ralph.nix               # Main home-manager config
+│   ├── neovim.nix              # Neovim setup
+│   ├── neovim-config/          # Lua-based Neovim configuration
+│   │   └── lua/
+│   │       ├── config.lua       # Config entry point
+│   │       ├── settings.lua     # Editor settings
+│   │       ├── keymaps.lua      # Keybindings
+│   │       ├── plugins.lua      # Plugin specifications (lazy.nvim)
+│   │       └── lsp.lua          # LSP configuration
+│   ├── zsh.nix                 # Zsh shell configuration
+│   ├── git.nix                 # Git configuration
+│   ├── tmux.nix                # Tmux configuration
+│   ├── wezterm.nix             # WezTerm terminal configuration
+│   └── zellij.nix              # Zellij multiplexer configuration
+├── modules/
+│   ├── common/
+│   │   └── locale.nix          # Locale, time, and Nix settings
+│   ├── desktop/
+│   │   ├── kde.nix             # KDE Plasma 6 + SDDM
+│   │   └── nvidia.nix          # Nvidia GPU setup
+│   └── services/
+│       ├── pipewire.nix        # Audio (PipeWire + ALSA)
+│       ├── networking.nix      # NetworkManager
+│       └── sops.nix            # sops-nix configuration template
+├── secrets/
+│   ├── .sops.yaml              # SOPS key management policy
+│   └── desktop-example.yaml    # Example secrets file
+└── .gitignore                  # Ignore local secrets and build artifacts
+```
+
+## Building & Deploying
+
+### Build (dry run)
+```bash
+nixos-rebuild build --flake .#ralph-laptop
+```
+
+### Switch (apply changes)
+```bash
+sudo nixos-rebuild switch --flake .#ralph-laptop
+```
+
+### Dry activate (test changes without applying)
+```bash
+sudo nixos-rebuild dry-activate --flake .#ralph-laptop
+```
+
+## What's Configured
+
+### Desktop Environment
+- **Display Manager**: SDDM
+- **Desktop**: KDE Plasma 6
+- **GPU**: Nvidia with proprietary drivers
+- **Audio**: PipeWire + ALSA
+
+### Development Environment
+- **Editor**: Neovim with lazy.nvim plugin manager
+  - Telescope (fuzzy finder)
+  - Treesitter (syntax highlighting)
+  - LSP Config (Rust, Nix, Lua)
+  - nvim-cmp (completion)
+  - Conform (formatting)
+  - TokyoNight colorscheme
+- **Rust Tooling**: cargo, rustc, rust-analyzer, clippy, rustfmt
+- **Container Support**: podman, buildah, skopeo
+- **Language Tools**: nil (Nix LSP), stylua (Lua formatter)
+
+### Terminal & Shell
+- **Terminals**: WezTerm (primary), tmux, Zellij
+- **Shell**: Zsh with direnv integration
+- **Multiplexing**: Full keybinding support in tmux and Zellij
+- **Editor Default**: Neovim (EDITOR, VISUAL, GIT_EDITOR)
+
+### Project Development
+- **Direnv**: Automatic environment loading via `.envrc`
+- **nix-direnv**: Flake-aware direnv for Rust/Nix projects
+- **Flake Support**: cargo, crane for OCI builds
+
+## Using with Rust Projects
+
+### 1. Create a project flake.nix
+```nix
+{
+  description = "My Rust Project";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    flake-utils.url = "github:numtide/flake-utils";
+    rust-overlay.url = "github:oxalica/rust-overlay";
+  };
+
+  outputs = { self, nixpkgs, flake-utils, rust-overlay }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        overlays = [ rust-overlay.overlays.rust-overlay ];
+        pkgs = import nixpkgs { inherit system overlays; };
+      in {
+        devShells.default = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            (rust-bin.stable.latest.default.override {
+              extensions = [ "rust-src" ];
+            })
+            cargo
+            rust-analyzer
+            clippy
+            rustfmt
+            pkg-config
+          ];
+        };
+      }
+    );
+}
+```
+
+### 2. Create an .envrc
+```bash
+use flake
+```
+
+### 3. Run direnv
+```bash
+direnv allow
+```
+
+## Secret Management with sops-nix
+
+### Initialize secrets
+1. Generate an age key (if you don't have one):
+   ```bash
+   age-keygen -o ~/.config/age/keys.txt
+   ```
+
+2. Update `.sops.yaml` with your public key:
+   ```yaml
+   creation_rules:
+     - path_regex: "secrets/.*"
+       age: "YOUR_AGE_PUBLIC_KEY"
+   ```
+
+3. Create/edit encrypted secrets:
+   ```bash
+   sops secrets/desktop.yaml
+   ```
+
+4. Reference secrets in NixOS:
+   ```nix
+   sops.secrets."myapp/password" = {
+     owner = "myapp";
+     group = "myapp";
+     mode = "0400";
+   };
+   ```
+
+## Post-Deployment
+
+### From /etc/nixos
+After successfully deploying the flake:
+1. Backup /etc/nixos if needed
+2. Optionally remove /etc/nixos and create a symlink:
+   ```bash
+   sudo mv /etc/nixos /etc/nixos.backup
+   ```
+3. Future rebuilds use: `sudo nixos-rebuild switch --flake /path/to/this/repo#ralph-laptop`
+
+## Development Workflow
+
+### Editing Neovim Config
+Config lives in `home/neovim-config/lua/`:
+- `config.lua`: Entry point (loads other modules)
+- `settings.lua`: Editor options
+- `keymaps.lua`: Keybindings
+- `plugins.lua`: Plugin setup with lazy.nvim
+- `lsp.lua`: Language server configuration
+
+Changes take effect after sourcing or restarting nvim.
+
+### Adding New Modules
+1. Create module file in `modules/{category}/newmodule.nix`
+2. Import in `hosts/desktop/configuration.nix`
+3. Run `nixos-rebuild build --flake .#ralph-laptop`
+4. Commit with git
+
+### Adding Home Manager Options
+1. Edit relevant file in `home/`
+2. Rebuild: `home-manager switch --flake .#ralph-laptop`
+3. Or combine with NixOS: `sudo nixos-rebuild switch --flake .#ralph-laptop`
+
+## Troubleshooting
+
+### Build fails with "path does not exist"
+- Files must be staged with git before the flake can see them
+  ```bash
+  git add <file>
+  ```
+
+### Neovim plugins not loading
+- Ensure `~/.local/share/nvim/site/pack/packer/start` doesn't conflict with lazy.nvim
+- lazy.nvim manages plugins in `~/.local/share/nvim/site/pack/lazy`
+
+### Podman permission denied
+- Add your user to the podman group (already done in config)
+- May require restart: `newgrp podman` or logout/login
+
+### sops key not found
+- Ensure age key exists at `/var/lib/sops-nix/key.txt`
+- Or update `sops.age.keyFile` in `modules/services/sops.nix`
+
+## Further Improvements
+
+Potential enhancements:
+- [ ] Fenix for extended Rust toolchain management
+- [ ] Language-specific dev shells in project flakes
+- [ ] Unified theme system across all tools (Tokyo Night)
+- [ ] Backup/restore automation with borgmatic
+- [ ] Additional LSPs: Python, Go, TypeScript
+- [ ] Git hooks and pre-commit setup
+- [ ] Containerized dev environments with devenv.sh
+
+## Resources
+
+- [NixOS Manual](https://nixos.org/manual/nixos/stable/)
+- [Home Manager Manual](https://nix-community.github.io/home-manager/)
+- [Flakes Documentation](https://wiki.nixos.org/wiki/Flakes)
+- [sops-nix](https://github.com/Mic92/sops-nix)
+- [Neovim Config Guide](https://neovim.io/doc/user/nvim.1.html)
+- [Rust Overlay](https://github.com/oxalica/rust-overlay)
