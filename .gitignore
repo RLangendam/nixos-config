@@ -1,0 +1,7 @@
+# Ignore local secret store files
+secrets/*.key
+secrets/*.gpg
+secrets/*.enc
+secrets/*.sops.yaml
+.nix-channels
+result
