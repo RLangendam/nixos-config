@@ -1,0 +1,6 @@
+# Example .envrc for Rust development with nix-direnv
+use flake
+
+# Alternative simple direnv setup
+# export RUST_BACKTRACE=1
+# export RUST_LOG=debug

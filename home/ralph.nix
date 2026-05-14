@@ -20,6 +20,7 @@
   programs.tmux.enable = true;
   programs.zellij.enable = true;
   programs.wezterm.enable = true;
+
   home.packages = with pkgs; [
     firefox
     ripgrep
@@ -32,9 +33,11 @@
     wezterm
     git
     stylua
-    lua-language-server
     rust-analyzer
     nil
+    cargo
+    rustfmt
+    clippy
   ];
 
   home.file.".config/nvim/init.lua".text = ''
