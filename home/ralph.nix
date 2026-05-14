@@ -24,6 +24,11 @@
   programs.tmux.enable = true;
   programs.zellij.enable = true;
   programs.wezterm.enable = true;
+  programs.starship.enable = true;
+  programs.starship.settings = {
+    add_newline = false;
+    format = "$all";
+  };
 
   home.packages = with pkgs; [
     firefox
@@ -35,6 +40,7 @@
     zellij
     tmux
     wezterm
+    nerd-fonts.jetbrains-mono
     git
     stylua
     rust-analyzer
@@ -58,6 +64,7 @@
         en
       ]
     ))
+    starship
   ];
 
   home.file.".config/nvim/init.lua".text = ''

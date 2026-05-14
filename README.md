@@ -222,7 +222,15 @@ Changes take effect after sourcing or restarting nvim.
 
 ### Adding Home Manager Options
 1. Edit relevant file in `home/`
-2. Rebuild: `home-manager switch --flake .#ralph-desktop`
+2. Rebuild with Home Manager via Nix shell if the `home-manager` command is not installed:
+  ```bash
+  nix run nixpkgs#home-manager -- switch --flake .#ralph-desktop
+  ```
+  Or install the binary globally first:
+  ```bash
+  nix profile install nixpkgs#home-manager
+  home-manager switch --flake .#ralph-desktop
+  ```
 3. Or combine with NixOS: `sudo nixos-rebuild switch --flake .#ralph-desktop`
 
 ## Troubleshooting
@@ -244,6 +252,10 @@ Changes take effect after sourcing or restarting nvim.
 ### sops key not found
 - Ensure age key exists at `/var/lib/sops-nix/key.txt`
 - Or update `sops.age.keyFile` in `modules/services/sops.nix`
+### home-manager command not found
+- This repo config uses `home-manager` through the NixOS flake integration, so the `home-manager` CLI may not be installed in your shell by default.
+- Use `nix run nixpkgs#home-manager -- switch --flake .#ralph-desktop` to apply home-manager config without installing the command globally.
+- If you want the command available permanently, install it with `nix profile install nixpkgs#home-manager`.
 
 ## Further Improvements
 

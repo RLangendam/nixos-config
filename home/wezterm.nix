@@ -6,17 +6,23 @@
       local config = wezterm.config_builder()
 
       config.color_scheme = "Tokyo Night"
-      config.font = wezterm.font("JetBrains Mono")
+      config.font = wezterm.font_with_fallback({
+        "JetBrainsMono Nerd Font Mono",
+        "Symbols Nerd Font",
+        "Segoe UI Emoji",
+      })
       config.font_size = 11
+      config.line_height = 1.1
       config.window_padding = {
         left = 10,
         right = 10,
         top = 10,
         bottom = 10,
       }
-      config.window_background_opacity = 0.95
+      config.window_background_opacity = 1.0
       config.enable_tab_bar = true
       config.tab_bar_at_bottom = true
+      config.default_prog = { 'zsh' }
 
       -- Key bindings
       config.leader = { key = 'a', mods = 'CTRL' }
