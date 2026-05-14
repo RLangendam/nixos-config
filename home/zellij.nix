@@ -56,7 +56,7 @@
         white   "#c0caf5"
       }
     }
-    
+
     theme "tokyo-night"
   '';
 }

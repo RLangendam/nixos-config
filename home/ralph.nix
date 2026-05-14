@@ -42,6 +42,22 @@
     cargo
     rustfmt
     clippy
+    kdePackages.kate
+    thunderbird
+    vscode
+    keepass
+    steam
+    davinci-resolve
+    libreoffice
+    hunspell
+    hunspellDicts.nl_nl
+    hunspellDicts.en_US
+    (aspellWithDicts (
+      dicts: with dicts; [
+        nl
+        en
+      ]
+    ))
   ];
 
   home.file.".config/nvim/init.lua".text = ''

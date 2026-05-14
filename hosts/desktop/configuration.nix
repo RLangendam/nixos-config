@@ -13,7 +13,21 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "ralph-laptop";
+  fileSystems."/data" = {
+    device = "/dev/disk/by-uuid/bb685c32-754c-4e61-a213-8cebb543d895";
+    fsType = "xfs";
+    options = [
+      "defaults"
+      "nofail"
+      "user"
+    ];
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /data 0755 ralph users -"
+  ];
+
+  networking.hostName = "ralph-nixos-desktop";
 
   time.timeZone = "Europe/Amsterdam";
 
@@ -59,6 +73,12 @@
   };
 
   programs.direnv.enable = true;
+
+  services.earlyoom.enable = true;
+  services.earlyoom.freeMemThreshold = 15;
+  services.earlyoom.freeMemKillThreshold = 7;
+  services.earlyoom.freeSwapThreshold = 20;
+  services.earlyoom.freeSwapKillThreshold = 10;
 
   system.stateVersion = "25.11";
 }

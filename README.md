@@ -53,17 +53,17 @@ A modern, modular NixOS configuration using flakes with:
 
 ### Build (dry run)
 ```bash
-nixos-rebuild build --flake .#ralph-laptop
+nixos-rebuild build --flake .#ralph-desktop
 ```
 
 ### Switch (apply changes)
 ```bash
-sudo nixos-rebuild switch --flake .#ralph-laptop
+sudo nixos-rebuild switch --flake .#ralph-desktop
 ```
 
 ### Dry activate (test changes without applying)
 ```bash
-sudo nixos-rebuild dry-activate --flake .#ralph-laptop
+sudo nixos-rebuild dry-activate --flake .#ralph-desktop
 ```
 
 ## What's Configured
@@ -145,33 +145,52 @@ direnv allow
 
 ## Secret Management with sops-nix
 
-### Initialize secrets
-1. Generate an age key (if you don't have one):
-   ```bash
-   age-keygen -o ~/.config/age/keys.txt
-   ```
+### Configure encrypted secrets
+1. Generate an age key pair if needed:
+  ```bash
+  mkdir -p ~/.config/age
+  age-keygen -o ~/.config/age/keys.txt
+  ```
 
-2. Update `.sops.yaml` with your public key:
-   ```yaml
-   creation_rules:
-     - path_regex: "secrets/.*"
-       age: "YOUR_AGE_PUBLIC_KEY"
-   ```
+2. Add your public age key to `secrets/.sops.yaml`:
+  ```yaml
+  creation_rules:
+    - path_regex: ".*"
+     age:
+      - "age1...your_public_key..."
+     encrypted_regex: "^(data|stringData)$"
+     kms: []
+     pgp: []
+     azure_key_vault: []
+     gcp_kms: []
+     hc_vault: []
+  ```
 
-3. Create/edit encrypted secrets:
-   ```bash
-   sops secrets/desktop.yaml
-   ```
+3. Copy the example to a real secrets file and edit it:
+  ```bash
+  cp secrets/desktop-example.yaml secrets/desktop.yaml
+  sops secrets/desktop.yaml
+  ```
 
-4. Reference secrets in NixOS:
-   ```nix
-   sops.secrets."myapp/password" = {
-     owner = "myapp";
-     group = "myapp";
-     mode = "0400";
-   };
-   ```
+4. Reference the encrypted secrets in your NixOS configuration:
+  ```nix
+  sops.secrets."myapp/password" = {
+    owner = "myapp";
+    group = "myapp";
+    mode = "0400";
+  };
+  ```
 
+5. Rebuild or switch the system:
+  ```bash
+  sudo nixos-rebuild switch --flake .#ralph-desktop
+  ```
+
+### How it works
+- `sops` encrypts the YAML file in `secrets/desktop.yaml` and stores the ciphertext in Git-safe format.
+- `sops-nix` reads the decrypted values at build time and writes the requested secrets to disk with the specified ownership and permissions.
+- Keep the unencrypted secret file out of version control; only commit the encrypted file.
+> Note: the current repository already includes `secrets/.sops.yaml` and `secrets/desktop-example.yaml`. Use the example file as a template and save the real encrypted file as `secrets/desktop.yaml`.
 ## Post-Deployment
 
 ### From /etc/nixos
@@ -181,7 +200,7 @@ After successfully deploying the flake:
    ```bash
    sudo mv /etc/nixos /etc/nixos.backup
    ```
-3. Future rebuilds use: `sudo nixos-rebuild switch --flake /path/to/this/repo#ralph-laptop`
+3. Future rebuilds use: `sudo nixos-rebuild switch --flake /path/to/this/repo#ralph-desktop`
 
 ## Development Workflow
 
@@ -198,13 +217,13 @@ Changes take effect after sourcing or restarting nvim.
 ### Adding New Modules
 1. Create module file in `modules/{category}/newmodule.nix`
 2. Import in `hosts/desktop/configuration.nix`
-3. Run `nixos-rebuild build --flake .#ralph-laptop`
+3. Run `nixos-rebuild build --flake .#ralph-desktop`
 4. Commit with git
 
 ### Adding Home Manager Options
 1. Edit relevant file in `home/`
-2. Rebuild: `home-manager switch --flake .#ralph-laptop`
-3. Or combine with NixOS: `sudo nixos-rebuild switch --flake .#ralph-laptop`
+2. Rebuild: `home-manager switch --flake .#ralph-desktop`
+3. Or combine with NixOS: `sudo nixos-rebuild switch --flake .#ralph-desktop`
 
 ## Troubleshooting
 

@@ -33,7 +33,7 @@
       system = "x86_64-linux";
     in
     {
-      nixosConfigurations.ralph-laptop = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.ralph-desktop = nixpkgs.lib.nixosSystem {
         inherit system;
 
         modules = [

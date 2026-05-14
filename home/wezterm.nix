@@ -17,7 +17,7 @@
       config.window_background_opacity = 0.95
       config.enable_tab_bar = true
       config.tab_bar_at_bottom = true
-      
+
       -- Key bindings
       config.leader = { key = 'a', mods = 'CTRL' }
       local act = wezterm.action
