@@ -45,6 +45,7 @@
             home-manager.useUserPackages = true;
 
             home-manager.users.ralph = import ./home/ralph.nix;
+            home-manager.users.ramon = import ./home/ramon.nix;
           }
         ];
       };

@@ -43,6 +43,15 @@
     ];
   };
 
+  users.users.ramon = {
+    isNormalUser = true;
+    extraGroups = [
+      "networkmanager"
+      "video"
+      "audio"
+    ];
+  };
+
   services.xserver.enable = true;
 
   environment.systemPackages = with pkgs; [
