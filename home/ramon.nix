@@ -51,7 +51,7 @@
     davinci-resolve
     libreoffice
     hunspell
-    hunspellDicts.nl_BR
+    hunspellDicts.pt_BR
     hunspellDicts.en_US
     (aspellWithDicts (
       dicts: with dicts; [
