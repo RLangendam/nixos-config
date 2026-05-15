@@ -52,7 +52,6 @@
     thunderbird
     vscode
     keepass
-    steam
     davinci-resolve
     libreoffice
     hunspell

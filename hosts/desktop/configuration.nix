@@ -6,6 +6,7 @@
     ../../modules/common/locale.nix
     ../../modules/desktop/kde.nix
     ../../modules/desktop/nvidia.nix
+    ../../modules/desktop/steam.nix
     ../../modules/services/pipewire.nix
     ../../modules/services/networking.nix
   ];

@@ -86,6 +86,5 @@
     ./wezterm.nix
     ./tmux.nix
     ./zellij.nix
-    ./steam.nix
   ];
 }
