@@ -1,21 +1,20 @@
 { config, pkgs, ... }:
 {
   i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "nl_NL.UTF-8";
-    LC_IDENTIFICATION = "nl_NL.UTF-8";
-    LC_MEASUREMENT = "nl_NL.UTF-8";
-    LC_MONETARY = "nl_NL.UTF-8";
-    LC_NAME = "nl_NL.UTF-8";
-    LC_NUMERIC = "nl_NL.UTF-8";
-    LC_PAPER = "nl_NL.UTF-8";
-    LC_TELEPHONE = "nl_NL.UTF-8";
-    LC_TIME = "nl_NL.UTF-8";
-    LC_MESSAGES = "nl_NL.UTF-8";
-  };
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
+  i18n.extraLocales = [
+    "nl_NL.UTF-8/UTF-8"
+    "pt_BR.UTF-8/UTF-8"
   ];
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = config.i18n.defaultLocale;
+    LC_IDENTIFICATION = config.i18n.defaultLocale;
+    LC_MEASUREMENT = config.i18n.defaultLocale;
+    LC_MONETARY = config.i18n.defaultLocale;
+    LC_NAME = config.i18n.defaultLocale;
+    LC_NUMERIC = config.i18n.defaultLocale;
+    LC_PAPER = config.i18n.defaultLocale;
+    LC_TELEPHONE = config.i18n.defaultLocale;
+    LC_TIME = config.i18n.defaultLocale;
+    LC_MESSAGES = config.i18n.defaultLocale;
+  };
 }

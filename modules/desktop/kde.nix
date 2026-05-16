@@ -9,5 +9,8 @@
     variant = "";
   };
 
-  services.printing.enable = true;
+  environment.systemPackages = with pkgs; [
+    kdePackages.kate
+    kdePackages.dolphin
+  ];
 }

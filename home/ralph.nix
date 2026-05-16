@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   home.username = "ralph";
   home.homeDirectory = "/home/ralph";
@@ -13,44 +18,32 @@
     };
   };
 
-  programs.zsh.enable = true;
-  programs.zsh.initContent = ''
-    eval "$(direnv hook zsh)"
-  '';
+  # programs.zsh.enable = true;
+  # programs.zsh.initContent = ''
+  #   eval "$(direnv hook zsh)"
+  # '';
 
-  programs.direnv.enable = true;
-  programs.direnv.package = pkgs.direnv;
+  # programs.direnv.enable = true;
+  # programs.direnv.package = pkgs.direnv;
 
-  programs.tmux.enable = true;
-  programs.zellij.enable = true;
-  programs.wezterm.enable = true;
-  programs.starship.enable = true;
-  programs.starship.settings = {
-    add_newline = false;
-    format = "$all";
-  };
+  # programs.tmux.enable = true;
+  # programs.zellij.enable = true;
+  # programs.wezterm.enable = true;
+  # programs.starship.enable = true;
+  # programs.starship.settings = {
+  #   add_newline = false;
+  #   format = "$all";
+  # };
 
   home.packages = with pkgs; [
-    firefox
+    # firefox
     ripgrep
     fd
+    eza
     bat
-    direnv
-    nix-direnv
-    zellij
-    tmux
-    wezterm
-    nerd-fonts.jetbrains-mono
-    git
-    stylua
-    rust-analyzer
-    nil
-    cargo
-    rustfmt
-    clippy
-    kdePackages.kate
+    bottom
     thunderbird
-    vscode
+    # vscode
     keepass
     davinci-resolve
     libreoffice
@@ -63,30 +56,55 @@
         en
       ]
     ))
-    starship
+    # krita
+    # pinta
+    # inkscape
+    # libresprite
+    # upscayl
+    # material-maker
+    # google-fonts
+    # fontforge-gtk
+    # blender
+    # git-extras
+    # git-filter-repo
+    # openssh
+    # vlc
+    # mpv
+    # ffmpeg
+    # discord
+    # obs-studio
+    # kdePackages.kdenlive
+    # zip
+    # unzip
+    # rsync
+    # pandoc
+    # yazi
   ];
 
-  home.file.".config/nvim/init.lua".text = ''
-    local config_path = vim.fn.expand("~/.config/lua")
-    vim.opt.rtp:prepend(config_path)
-    package.path = config_path .. "/?.lua;" .. package.path
-    package.path = config_path .. "/?/init.lua;" .. package.path
-    require("config")
-  '';
+  programs.firefox.enable = true;
+  # error: The option `home-manager.users.ralph.programs.thunderbird.profiles' was accessed but has no value defined. Try setting the option.
+  #programs.thunderbird.enable = true;
+  programs.vscode.enable = true;
 
-  home.file.".config/lua".source = ./neovim-config/lua;
-
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-    GIT_EDITOR = "nvim";
+  xdg.mimeApps.defaultApplications = lib.mkForce {
+    "image/svg+xml" = [ "org.inkscape.Inkscape.desktop" ];
   };
 
+  programs.git.lfs.enable = true;
+  services.ssh-agent.enable = true;
+
+  programs.obs-studio.plugins = with pkgs.obs-studio-plugins; [
+    obs-gstreamer
+    obs-vaapi
+    obs-scale-to-sound
+  ];
+
   home.stateVersion = "25.11";
+
   imports = [
     ./neovim.nix
     ./zsh.nix
-    ./git.nix
+    # ./git.nix
     ./wezterm.nix
     ./tmux.nix
     ./zellij.nix

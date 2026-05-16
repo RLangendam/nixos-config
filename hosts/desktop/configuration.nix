@@ -3,12 +3,16 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/common/nix.nix
     ../../modules/common/locale.nix
     ../../modules/desktop/kde.nix
     ../../modules/desktop/nvidia.nix
     ../../modules/desktop/steam.nix
     ../../modules/services/pipewire.nix
     ../../modules/services/networking.nix
+    ../../modules/services/printing.nix
+    ../../modules/services/automount.nix
+    ../../modules/services/earlyoom.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -28,7 +32,11 @@
     "d /data 0755 ralph users -"
   ];
 
-  networking.hostName = "ralph-nixos-desktop";
+  nix.settings = {
+    download-buffer-size = 524288000; # 500 MiB
+    cores = 4;
+    max-jobs = 3;
+  };
 
   time.timeZone = "Europe/Amsterdam";
 
@@ -56,39 +64,31 @@
   services.xserver.enable = true;
 
   environment.systemPackages = with pkgs; [
-    git
     wget
     curl
-    podman
-    buildah
-    skopeo
-    crane
-    zellij
-    tmux
-    wezterm
-    direnv
-    nix-direnv
-    rust-analyzer
-    cargo
-    nil
+    nerd-fonts.jetbrains-mono
     lua-language-server
     stylua
-    rustfmt
-    clippy
+    pciutils
   ];
 
-  virtualisation.podman = {
-    enable = true;
-    dockerSocket.enable = true;
-  };
+  programs.zsh.enable = true;
+  environment.shells = with pkgs; [ zsh ];
+  users.defaultUserShell = pkgs.zsh;
 
-  programs.direnv.enable = true;
+  # programs.starship.enable = true;
+  # programs.starship.settings = {
+  #   add_newline = false;
+  #   format = "$all";
+  # };
 
-  services.earlyoom.enable = true;
-  services.earlyoom.freeMemThreshold = 15;
-  services.earlyoom.freeMemKillThreshold = 7;
-  services.earlyoom.freeSwapThreshold = 20;
-  services.earlyoom.freeSwapKillThreshold = 10;
+  programs.localsend.enable = true;
+
+  services.blueman.enable = true;
+  services.flatpak.enable = true;
+  services.power-profiles-daemon.enable = true;
+
+  xdg.portal.enable = true;
 
   system.stateVersion = "25.11";
 }

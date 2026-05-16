@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 {
-  programs.zellij = {
-    enable = true;
-  };
+  programs.zellij.enable = true;
 
   home.file.".config/zellij/config.kdl".text = ''
     keybinds clear-defaults=true {
