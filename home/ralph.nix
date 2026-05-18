@@ -15,36 +15,18 @@
         name = "Ralph Langendam";
         email = "rlangendam@gmail.com";
       };
+      lfs.enable = true;
     };
   };
 
-  # programs.zsh.enable = true;
-  # programs.zsh.initContent = ''
-  #   eval "$(direnv hook zsh)"
-  # '';
-
-  # programs.direnv.enable = true;
-  # programs.direnv.package = pkgs.direnv;
-
-  # programs.tmux.enable = true;
-  # programs.zellij.enable = true;
-  # programs.wezterm.enable = true;
-  # programs.starship.enable = true;
-  # programs.starship.settings = {
-  #   add_newline = false;
-  #   format = "$all";
-  # };
-
   home.packages = with pkgs; [
-    # firefox
     ripgrep
     fd
     eza
     bat
     bottom
     thunderbird
-    # vscode
-    keepass
+    keepassxc
     davinci-resolve
     libreoffice
     hunspell
@@ -58,27 +40,29 @@
     ))
     # krita
     # pinta
-    # inkscape
     # libresprite
     # upscayl
     # material-maker
-    # google-fonts
+    google-fonts
     # fontforge-gtk
     # blender
-    # git-extras
-    # git-filter-repo
-    # openssh
-    # vlc
-    # mpv
-    # ffmpeg
-    # discord
-    # obs-studio
+    git-extras
+    git-filter-repo
+    mpv
+    ffmpeg
+    discord
     # kdePackages.kdenlive
-    # zip
-    # unzip
-    # rsync
-    # pandoc
-    # yazi
+    zip
+    unzip
+    rsync
+    pandoc
+    # local-ai # Broken
+    inkscape
+    gimp-with-plugins
+    vlc
+    vlc-bittorrent
+    kdePackages.phonon-vlc
+    lutris
   ];
 
   programs.firefox.enable = true;
@@ -90,21 +74,24 @@
     "image/svg+xml" = [ "org.inkscape.Inkscape.desktop" ];
   };
 
-  programs.git.lfs.enable = true;
   services.ssh-agent.enable = true;
 
+  programs.obs-studio.enable = true;
   programs.obs-studio.plugins = with pkgs.obs-studio-plugins; [
     obs-gstreamer
     obs-vaapi
     obs-scale-to-sound
   ];
 
+  programs.yazi.enable = true;
+
+  services.kdeconnect.enable = true;
+
   home.stateVersion = "25.11";
 
   imports = [
     ./neovim.nix
     ./zsh.nix
-    # ./git.nix
     ./wezterm.nix
     ./tmux.nix
     ./zellij.nix

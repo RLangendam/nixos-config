@@ -2,8 +2,8 @@
 
 {
   environment.systemPackages = with pkgs; [
-    docker-compose
-    lazydocker
+    # docker-compose
+    # lazydocker
     virt-manager
     qemu
     uefi-run
@@ -18,11 +18,11 @@
     dockerSocket.enable = true;
   };
 
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = true;
-    autoPrune.enable = true;
-  };
+  # virtualisation.docker = {
+  #   enable = true;
+  #   enableOnBoot = true;
+  #   autoPrune.enable = true;
+  # };
 
   virtualisation.lxc.enable = true;
 

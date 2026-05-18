@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   home.username = "ramon";
   home.homeDirectory = "/home/ramon";
@@ -13,45 +18,17 @@
     };
   };
 
-  # programs.zsh.enable = true;
-  # programs.zsh.initContent = ''
-  #   eval "$(direnv hook zsh)"
-  # '';
-
   programs.direnv.enable = true;
   programs.direnv.package = pkgs.direnv;
 
-  # programs.tmux.enable = true;
-  # programs.zellij.enable = true;
-  # programs.wezterm.enable = true;
-  # programs.starship.enable = true;
-  # programs.starship.settings = {
-  #   add_newline = false;
-  #   format = "$all";
-  # };
-
   home.packages = with pkgs; [
-    # firefox
-
-    # ripgrep
-    # fd
-    # bat
-    # direnv
-    # nix-direnv
-    # zellij
-    # tmux
-    # wezterm
-    # nerd-fonts.jetbrains-mono
-    # git
-    # stylua
-    # nil
-    # kdePackages.kate
-
-    # thunderbird
-    # vscode
-    # keepass
-    # davinci-resolve
+    davinci-resolve
+    discord
     libreoffice
+    thunderbird
+    vlc
+    vlc-bittorrent
+    kdePackages.phonon-vlc
     hunspell
     hunspellDicts.pt_BR
     hunspellDicts.en_US
@@ -61,20 +38,16 @@
         en
       ]
     ))
-    # starship
   ];
 
   programs.firefox.enable = true;
-  # programs.thunderbird.enable = true;
-  # programs.vscode.enable = true;
+
+  programs.obs-studio.enable = true;
+  programs.obs-studio.plugins = with pkgs.obs-studio-plugins; [
+    obs-gstreamer
+    obs-vaapi
+    obs-scale-to-sound
+  ];
 
   home.stateVersion = "25.11";
-  imports = [
-    ./neovim.nix
-    ./zsh.nix
-    # ./git.nix
-    ./wezterm.nix
-    ./tmux.nix
-    ./zellij.nix
-  ];
 }

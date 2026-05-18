@@ -8,11 +8,14 @@
     ../../modules/desktop/kde.nix
     ../../modules/desktop/nvidia.nix
     ../../modules/desktop/steam.nix
+    ../../modules/development/rust.nix
+    ../../modules/development/virtualization.nix
     ../../modules/services/pipewire.nix
     ../../modules/services/networking.nix
     ../../modules/services/printing.nix
     ../../modules/services/automount.nix
     ../../modules/services/earlyoom.nix
+    ../../modules/services/syncthing.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -25,6 +28,7 @@
       "defaults"
       "nofail"
       "user"
+      "exec"
     ];
   };
 
@@ -76,13 +80,10 @@
   environment.shells = with pkgs; [ zsh ];
   users.defaultUserShell = pkgs.zsh;
 
-  # programs.starship.enable = true;
-  # programs.starship.settings = {
-  #   add_newline = false;
-  #   format = "$all";
-  # };
-
-  programs.localsend.enable = true;
+  programs.localsend = {
+    enable = true;
+    openFirewall = true;
+  };
 
   services.blueman.enable = true;
   services.flatpak.enable = true;
