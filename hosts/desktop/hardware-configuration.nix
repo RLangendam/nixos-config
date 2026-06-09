@@ -48,4 +48,10 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.bluetooth.enable = true;
   hardware.xone.enable = true;
+
+  boot.supportedFilesystems = [
+    "exfat" # For larger USBs
+    "ntfs" # For Windows formatted drives
+    "vfat" # For FAT32
+  ];
 }

@@ -27,6 +27,7 @@
       nixpkgs,
       home-manager,
       sops-nix,
+      rust-overlay,
       ...
     }:
     let
@@ -37,6 +38,13 @@
         inherit system;
 
         modules = [
+          # Apply rust-overlay via nixpkgs.overlays so modules can still set nixpkgs.config
+          (
+            { pkgs, ... }:
+            {
+              nixpkgs.overlays = [ rust-overlay.overlays.default ];
+            }
+          )
           ./hosts/desktop/configuration.nix
           home-manager.nixosModules.home-manager
           sops-nix.nixosModules.sops

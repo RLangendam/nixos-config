@@ -4,11 +4,12 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/common/nix.nix
+    ../../modules/common/fonts.nix
     ../../modules/common/locale.nix
     ../../modules/desktop/kde.nix
     ../../modules/desktop/nvidia.nix
     ../../modules/desktop/steam.nix
-    ../../modules/development/rust.nix
+    # ../../modules/development/rust.nix
     ../../modules/development/virtualization.nix
     ../../modules/services/pipewire.nix
     ../../modules/services/networking.nix
@@ -70,7 +71,6 @@
   environment.systemPackages = with pkgs; [
     wget
     curl
-    nerd-fonts.jetbrains-mono
     lua-language-server
     stylua
     pciutils
@@ -85,9 +85,13 @@
     openFirewall = true;
   };
 
-  services.blueman.enable = true;
+  # services.blueman.enable = true;
   services.flatpak.enable = true;
   services.power-profiles-daemon.enable = true;
+
+  services.devmon.enable = true;
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
 
   xdg.portal.enable = true;
 

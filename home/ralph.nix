@@ -43,7 +43,6 @@
     # libresprite
     # upscayl
     # material-maker
-    google-fonts
     # fontforge-gtk
     # blender
     git-extras
@@ -62,13 +61,36 @@
     vlc
     vlc-bittorrent
     kdePackages.phonon-vlc
-    lutris
+    qbittorrent
+    (heroic.override {
+      extraPkgs =
+        pkgs': with pkgs'; [
+          gamescope
+          gamemode
+        ];
+    })
+    (lutris.override {
+      extraLibraries =
+        pkgs: with pkgs; [
+          libadwaita
+          gtk4
+        ];
+    })
   ];
 
   programs.firefox.enable = true;
   # error: The option `home-manager.users.ralph.programs.thunderbird.profiles' was accessed but has no value defined. Try setting the option.
   #programs.thunderbird.enable = true;
   programs.vscode.enable = true;
+  # programs.lutris.enable = true;
+
+  # programs.lutris.extraPackages =
+  #   pkgs': with pkgs'; [
+  #     mangohud
+  #     winetricks
+  #     gamescope
+  #     gamemode
+  #   ];
 
   xdg.mimeApps.defaultApplications = lib.mkForce {
     "image/svg+xml" = [ "org.inkscape.Inkscape.desktop" ];

@@ -14,4 +14,9 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     nvidiaSettings = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    wineWowPackages.stable # System-wide Wine to resolve "Wine not found" warnings
+    vulkan-tools # Provides 'vulkaninfo' so Lutris can verify your card
+  ];
 }
