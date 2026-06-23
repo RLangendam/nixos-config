@@ -62,6 +62,10 @@
     vlc-bittorrent
     kdePackages.phonon-vlc
     qbittorrent
+    obsidian
+    ldtk
+    aseprite
+    tiled
     (heroic.override {
       extraPkgs =
         pkgs': with pkgs'; [
