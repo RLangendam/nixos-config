@@ -19,6 +19,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    aagl.url = "github:ezKEa/aagl-gtk-on-nix";
+
   };
 
   outputs =
@@ -28,6 +30,7 @@
       home-manager,
       sops-nix,
       rust-overlay,
+      aagl,
       ...
     }:
     let
@@ -54,6 +57,10 @@
 
             home-manager.users.ralph = import ./home/ralph.nix;
             home-manager.users.ramon = import ./home/ramon.nix;
+
+            imports = [ aagl.nixosModules.default ];
+            # nix.settings = aagl.nixConfig; # Set up Cachix
+            programs.anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
           }
         ];
       };
