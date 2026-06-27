@@ -19,9 +19,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    aagl.url = "github:ezKEa/aagl-gtk-on-nix?ref=release-25.11";
-
     affinity-nix.url = "github:mrshmllow/affinity-nix";
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
 
   };
 
@@ -32,8 +32,8 @@
       home-manager,
       sops-nix,
       rust-overlay,
-      aagl,
       affinity-nix,
+      nix-flatpak,
       ...
     }:
     let
@@ -61,12 +61,13 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
-            home-manager.users.ralph = import ./home/ralph.nix;
+            home-manager.users.ralph = {
+              imports = [
+                ./home/ralph.nix
+                nix-flatpak.homeManagerModules.nix-flatpak
+              ];
+            };
             home-manager.users.ramon = import ./home/ramon.nix;
-
-            imports = [ aagl.nixosModules.default ];
-            # nix.settings = aagl.nixConfig; # Set up Cachix
-            programs.anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
           }
         ];
       };

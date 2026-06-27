@@ -1,0 +1,1 @@
+NIXPKGS_ALLOW_INSECURE=1 nix run nixpkgs#nix-tree -- --impure --derivation .#nixosConfigurations.ralph-desktop.config.system.build.toplevel

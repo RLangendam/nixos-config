@@ -39,19 +39,16 @@
     mpv
     ffmpeg
     discord
-    # kdePackages.kdenlive
     zip
     unzip
     rsync
     pandoc
-    # local-ai # Broken
     inkscape
     gimp-with-plugins
     vlc
     vlc-bittorrent
     kdePackages.phonon-vlc
     qbittorrent
-    obsidian
     ldtk
     aseprite
     tiled
@@ -64,38 +61,18 @@
     veracrypt
     qdirstat
     handbrake
-    (heroic.override {
-      extraPkgs =
-        pkgs': with pkgs'; [
-          gamescope
-          gamemode
-        ];
-    })
-    (lutris.override {
-      extraLibraries =
-        pkgs: with pkgs; [
-          libadwaita
-          gtk4
-        ];
-    })
+  ];
+
+  services.flatpak.packages = [
+    "md.obsidian.Obsidian"
+    "moe.launcher.an-anime-game-launcher"
   ];
 
   programs.firefox.enable = true;
-  # error: The option `home-manager.users.ralph.programs.thunderbird.profiles' was accessed but has no value defined. Try setting the option.
-  #programs.thunderbird.enable = true;
   programs.vscode = {
     enable = true;
     package = pkgs.vscode-fhs;
   };
-  # programs.lutris.enable = true;
-
-  # programs.lutris.extraPackages =
-  #   pkgs': with pkgs'; [
-  #     mangohud
-  #     winetricks
-  #     gamescope
-  #     gamemode
-  #   ];
 
   xdg.mimeApps.defaultApplications = lib.mkForce {
     "image/svg+xml" = [ "org.inkscape.Inkscape.desktop" ];
@@ -122,7 +99,9 @@
   home.stateVersion = "25.11";
 
   imports = [
+    ./flatpak.nix
     ./git.nix
+    ./heroic.nix
     ./neovim.nix
     ./rust.nix
     ./wezterm.nix
