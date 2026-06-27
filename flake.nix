@@ -19,7 +19,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    aagl.url = "github:ezKEa/aagl-gtk-on-nix";
+    aagl.url = "github:ezKEa/aagl-gtk-on-nix?ref=release-25.11";
 
     affinity-nix.url = "github:mrshmllow/affinity-nix";
 
