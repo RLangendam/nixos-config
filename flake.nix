@@ -21,6 +21,8 @@
 
     aagl.url = "github:ezKEa/aagl-gtk-on-nix";
 
+    affinity-nix.url = "github:mrshmllow/affinity-nix";
+
   };
 
   outputs =
@@ -31,6 +33,7 @@
       sops-nix,
       rust-overlay,
       aagl,
+      affinity-nix,
       ...
     }:
     let
@@ -45,7 +48,10 @@
           (
             { pkgs, ... }:
             {
-              nixpkgs.overlays = [ rust-overlay.overlays.default ];
+              nixpkgs.overlays = [
+                rust-overlay.overlays.default
+                affinity-nix.overlays.default
+              ];
             }
           )
           ./hosts/desktop/configuration.nix

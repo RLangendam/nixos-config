@@ -5,6 +5,7 @@
 
   services.openssh.enable = true;
 
+  # For KDEConnect
   networking.firewall = rec {
     allowedTCPPortRanges = [
       {

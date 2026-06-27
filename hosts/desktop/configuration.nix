@@ -36,6 +36,11 @@
   systemd.tmpfiles.rules = [
     "d /data 0755 ralph users -"
   ];
+  # Disable systemd targets for sleep and hibernation
+  systemd.targets.sleep.enable = false;
+  systemd.targets.suspend.enable = false;
+  systemd.targets.hibernate.enable = false;
+  systemd.targets.hybrid-sleep.enable = false;
 
   nix.settings = {
     download-buffer-size = 524288000; # 500 MiB
@@ -94,6 +99,10 @@
   services.udisks2.enable = true;
 
   xdg.portal.enable = true;
+
+  services.xrdp.enable = true;
+  services.xrdp.defaultWindowManager = "startplasma-x11";
+  services.xrdp.openFirewall = true;
 
   system.stateVersion = "25.11";
 }

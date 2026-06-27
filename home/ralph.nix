@@ -10,6 +10,7 @@
 
   programs.git = {
     enable = true;
+    package = pkgs.gitFull;
     settings = {
       user = {
         name = "Ralph Langendam";
@@ -66,6 +67,15 @@
     ldtk
     aseprite
     tiled
+    bash-language-server
+    pkgs.affinity-v3
+    brave
+    pika-backup
+    digikam
+    evince
+    veracrypt
+    qdirstat
+    handbrake
     (heroic.override {
       extraPkgs =
         pkgs': with pkgs'; [
@@ -112,6 +122,11 @@
   programs.yazi.enable = true;
 
   services.kdeconnect.enable = true;
+
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda"; # Schakelt CUDA in voor Nvidia GPU's
+  };
 
   home.stateVersion = "25.11";
 
