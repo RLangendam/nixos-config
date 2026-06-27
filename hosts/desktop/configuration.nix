@@ -78,6 +78,8 @@
     lua-language-server
     stylua
     pciutils
+    cacert
+    openssl
   ];
 
   programs.zsh.enable = true;
@@ -97,7 +99,10 @@
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
-  xdg.portal.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+  };
 
   services.xrdp.enable = true;
   services.xrdp.defaultWindowManager = "startplasma-x11";

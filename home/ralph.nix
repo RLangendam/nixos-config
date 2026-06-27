@@ -83,7 +83,10 @@
   programs.firefox.enable = true;
   # error: The option `home-manager.users.ralph.programs.thunderbird.profiles' was accessed but has no value defined. Try setting the option.
   #programs.thunderbird.enable = true;
-  programs.vscode.enable = true;
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscode-fhs;
+  };
   # programs.lutris.enable = true;
 
   # programs.lutris.extraPackages =
