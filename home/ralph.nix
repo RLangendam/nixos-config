@@ -8,18 +8,6 @@
   home.username = "ralph";
   home.homeDirectory = "/home/ralph";
 
-  programs.git = {
-    enable = true;
-    package = pkgs.gitFull;
-    settings = {
-      user = {
-        name = "Ralph Langendam";
-        email = "rlangendam@gmail.com";
-      };
-      lfs.enable = true;
-    };
-  };
-
   home.packages = with pkgs; [
     ripgrep
     fd
@@ -131,10 +119,11 @@
   home.stateVersion = "25.11";
 
   imports = [
+    ./git.nix
     ./neovim.nix
-    ./zsh.nix
+    ./rust.nix
     ./wezterm.nix
-    ./tmux.nix
     ./zellij.nix
+    ./zsh.nix
   ];
 }
