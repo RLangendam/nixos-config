@@ -67,7 +67,12 @@
                 nix-flatpak.homeManagerModules.nix-flatpak
               ];
             };
-            home-manager.users.ramon = import ./home/ramon.nix;
+            home-manager.users.ramon = {
+              imports = [
+                ./home/ramon.nix
+                nix-flatpak.homeManagerModules.nix-flatpak
+              ];
+            };
           }
         ];
       };

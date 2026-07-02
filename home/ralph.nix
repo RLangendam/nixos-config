@@ -61,11 +61,51 @@
     veracrypt
     qdirstat
     handbrake
+    gearlever
+    retroarch
+    tor-browser
+    # whatsie
+    # ventoy
+    audacity
+    shortwave
+    clamav
+    clamtk
+    dbeaver-bin
+    video-downloader
+    # podman-desktop
+    postman
+    calibre
+    arduino-ide
+    filezilla
+    upscaler
+    # geogebra6
+    # itch
+    haguichi
+    dosbox-staging
+    teamspeak6-client
+    openttd
+    i2pd
+    i2pd-tools
+    vice
+    the-powder-toy
+    logisim-evolution
+    antigravity
   ];
+
+  # Vertelt je desktopomgeving (KDE) om ook in de lokale Flatpak mappen te zoeken
+  # home.sessionVariables = {
+  #   XDG_DATA_DIRS = "$XDG_DATA_DIRS:$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share";
+  # };
 
   services.flatpak.packages = [
     "md.obsidian.Obsidian"
     "moe.launcher.an-anime-game-launcher"
+    "com.github.unrud.VideoDownloader"
+    "com.adobe.Flash-Player-Projector"
+    "com.ktechpit.torrhunt"
+    "io.podman_desktop.PodmanDesktop"
+    "org.geogebra.GeoGebra"
+    "io.itch.itch"
   ];
 
   programs.firefox.enable = true;

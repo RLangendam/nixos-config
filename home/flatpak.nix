@@ -8,7 +8,7 @@
   services.flatpak.remotes = [
     {
       name = "flathub";
-      location = "https://flathub.org";
+      location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
     }
   ];
 }

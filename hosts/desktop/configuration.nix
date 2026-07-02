@@ -21,17 +21,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  fileSystems."/data" = {
-    device = "/dev/disk/by-uuid/bb685c32-754c-4e61-a213-8cebb543d895";
-    fsType = "xfs";
-    options = [
-      "defaults"
-      "nofail"
-      "user"
-      "exec"
-    ];
-  };
-
   systemd.tmpfiles.rules = [
     "d /data 0755 ralph users -"
   ];

@@ -40,6 +40,49 @@
     ];
   };
 
+  fileSystems."/data" = {
+    device = "/dev/disk/by-uuid/bb685c32-754c-4e61-a213-8cebb543d895";
+    fsType = "xfs";
+    options = [
+      "defaults"
+      "nofail"
+      "user"
+      "exec"
+    ];
+  };
+
+  fileSystems."/home/ralph/.var/app/moe.launcher.an-anime-game-launcher/data/anime-game-launcher/Genshin Impact" =
+    {
+      depends = [
+        "/data"
+      ];
+      device = "/data/AAGL/Genshin Impact/";
+      fsType = "none";
+      options = [
+        "bind"
+        "defaults"
+        "nofail"
+        "user"
+        "exec"
+      ];
+    };
+
+  fileSystems."/home/ramon/.var/app/moe.launcher.an-anime-game-launcher/data/anime-game-launcher/Genshin Impact" =
+    {
+      depends = [
+        "/data"
+      ];
+      device = "/data/AAGL/Genshin Impact/";
+      fsType = "none";
+      options = [
+        "bind"
+        "defaults"
+        "nofail"
+        "user"
+        "exec"
+      ];
+    };
+
   swapDevices = [
     { device = "/dev/disk/by-uuid/e226e865-e358-4581-beb7-2fdb664b0fd6"; }
   ];

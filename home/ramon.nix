@@ -49,5 +49,13 @@
     obs-scale-to-sound
   ];
 
+  services.flatpak.packages = [
+    "moe.launcher.an-anime-game-launcher"
+  ];
+
+  imports = [
+    ./flatpak.nix
+  ];
+
   home.stateVersion = "25.11";
 }
