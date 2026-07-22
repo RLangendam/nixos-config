@@ -90,6 +90,14 @@
     the-powder-toy
     logisim-evolution
     antigravity
+    kdePackages.filelight
+    (heroic.override {
+      extraPkgs =
+        pkgs': with pkgs'; [
+          gamescope
+          gamemode
+        ];
+    })
   ];
 
   # Vertelt je desktopomgeving (KDE) om ook in de lokale Flatpak mappen te zoeken
@@ -139,9 +147,10 @@
   home.stateVersion = "25.11";
 
   imports = [
+    ./cpp.nix
     ./flatpak.nix
     ./git.nix
-    ./heroic.nix
+    # ./heroic.nix
     ./neovim.nix
     ./rust.nix
     ./wezterm.nix

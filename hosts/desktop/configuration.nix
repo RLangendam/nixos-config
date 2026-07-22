@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -9,6 +14,7 @@
     ../../modules/desktop/kde.nix
     ../../modules/desktop/nvidia.nix
     ../../modules/desktop/steam.nix
+    ../../modules/development/sccache.nix
     ../../modules/development/virtualization.nix
     ../../modules/services/pipewire.nix
     ../../modules/services/networking.nix
@@ -96,6 +102,10 @@
   services.xrdp.enable = true;
   services.xrdp.defaultWindowManager = "startplasma-x11";
   services.xrdp.openFirewall = true;
+
+  nixpkgs.overlays = [
+    inputs.rust-overlay.overlays.default
+  ];
 
   system.stateVersion = "25.11";
 }

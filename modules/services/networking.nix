@@ -15,4 +15,6 @@
     ];
     allowedUDPPortRanges = allowedTCPPortRanges;
   };
+
+  services.logmein-hamachi.enable = true;
 }

@@ -1,10 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
-  home.packages = with pkgs; [
-    cargo
-    rustc
-    rustfmt
-    clippy
+  home.packages = [
+    pkgs.rust-bin.stable.latest.default
+    pkgs.rust-analyzer
   ];
 }

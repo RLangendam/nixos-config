@@ -35,13 +35,15 @@
       affinity-nix,
       nix-flatpak,
       ...
-    }:
+    }@inputs:
     let
       system = "x86_64-linux";
     in
     {
       nixosConfigurations.ralph-desktop = nixpkgs.lib.nixosSystem {
         inherit system;
+
+        specialArgs = { inherit inputs; };
 
         modules = [
           # Apply rust-overlay via nixpkgs.overlays so modules can still set nixpkgs.config
@@ -54,6 +56,11 @@
               ];
             }
           )
+          {
+            nixpkgs.config.permittedInsecurePackages = [
+              "electron-39.8.10"
+            ];
+          }
           ./hosts/desktop/configuration.nix
           home-manager.nixosModules.home-manager
           sops-nix.nixosModules.sops
@@ -73,6 +80,8 @@
                 nix-flatpak.homeManagerModules.nix-flatpak
               ];
             };
+
+            home-manager.extraSpecialArgs = { inherit inputs; };
           }
         ];
       };
