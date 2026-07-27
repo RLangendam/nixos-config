@@ -20,7 +20,7 @@
     bash-language-server
 
     # formatters
-    nixfmt-rfc-style
+    nixfmt
     stylua
     shfmt
     nixdoc

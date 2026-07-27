@@ -14,7 +14,7 @@
 
     clang-tools
 
-    mold-wrapped
+    mold
     (lib.lowPrio (symlinkJoin {
       name = "wild-filtered";
       paths = [ wild ];

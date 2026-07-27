@@ -12,10 +12,10 @@
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
     # Other general flags if available can be set here.
     extraPackages = with pkgs; [
-      xorg.libXcursor
-      xorg.libXi
-      xorg.libXinerama
-      xorg.libXScrnSaver
+      libxcursor
+      libxi
+      libxinerama
+      libxscrnsaver
       libpng
       libpulseaudio
       libvorbis

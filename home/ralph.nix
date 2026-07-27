@@ -144,7 +144,7 @@
     acceleration = "cuda"; # Schakelt CUDA in voor Nvidia GPU's
   };
 
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 
   imports = [
     ./cpp.nix

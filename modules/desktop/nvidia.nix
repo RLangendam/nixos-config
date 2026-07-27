@@ -17,7 +17,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    wineWowPackages.stable # System-wide Wine to resolve "Wine not found" warnings
+    wineWow64Packages.stable # System-wide Wine to resolve "Wine not found" warnings
     vulkan-tools # Provides 'vulkaninfo' so Lutris can verify your card
   ];
 }

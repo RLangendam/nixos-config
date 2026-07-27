@@ -107,5 +107,7 @@
     inputs.rust-overlay.overlays.default
   ];
 
-  system.stateVersion = "25.11";
+  nix.gc.automatic = true;
+
+  system.stateVersion = "26.05";
 }
