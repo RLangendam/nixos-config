@@ -16,6 +16,8 @@
     powerManagement.enable = true;
   };
 
+  hardware.nvidia-container-toolkit.enable = true;
+
   environment.systemPackages = with pkgs; [
     wineWow64Packages.stable # System-wide Wine to resolve "Wine not found" warnings
     vulkan-tools # Provides 'vulkaninfo' so Lutris can verify your card

@@ -27,13 +27,12 @@
         en
       ]
     ))
-    # krita
-    # pinta
-    # libresprite
-    # upscayl
-    # material-maker
-    # fontforge-gtk
-    # blender
+    krita
+    pinta
+    libresprite
+    material-maker
+    fontforge-gtk
+    blender
     git-extras
     git-filter-repo
     mpv
@@ -62,7 +61,6 @@
     qdirstat
     handbrake
     gearlever
-    retroarch
     tor-browser
     # whatsie
     # ventoy
@@ -72,14 +70,11 @@
     clamtk
     dbeaver-bin
     video-downloader
-    # podman-desktop
     postman
     calibre
     arduino-ide
     filezilla
     upscaler
-    # geogebra6
-    # itch
     haguichi
     dosbox-staging
     teamspeak6-client
@@ -98,22 +93,33 @@
           gamemode
         ];
     })
+    geogebra
+    obsidian
+    ruffle
+    itch
+    podman-desktop
+    calibre
+    # (pkgs.pidgin.override {
+    #   plugins = [
+    #     pidginPackages.pidgin-otr
+    #     pidginPackages.pidgin-indicator
+    #     (pkgs.pidginPackages.purple-plugin-pack.overrideAttrs (oldAttrs: {
+    #       env = (oldAttrs.env or { }) // {
+    #         NIX_CFLAGS_COMPILE = "${
+    #           oldAttrs.env.NIX_CFLAGS_COMPILE or ""
+    #         } -Wno-error=incompatible-pointer-types";
+    #       };
+    #     }))
+    #     pidginPackages.pidgin-latex
+    #   ];
+    # })
+    retroarch-full
+    scummvm
   ];
 
-  # Vertelt je desktopomgeving (KDE) om ook in de lokale Flatpak mappen te zoeken
-  # home.sessionVariables = {
-  #   XDG_DATA_DIRS = "$XDG_DATA_DIRS:$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share";
-  # };
-
   services.flatpak.packages = [
-    "md.obsidian.Obsidian"
     "moe.launcher.an-anime-game-launcher"
     "com.github.unrud.VideoDownloader"
-    "com.adobe.Flash-Player-Projector"
-    "com.ktechpit.torrhunt"
-    "io.podman_desktop.PodmanDesktop"
-    "org.geogebra.GeoGebra"
-    "io.itch.itch"
   ];
 
   programs.firefox.enable = true;
@@ -150,7 +156,6 @@
     ./cpp.nix
     ./flatpak.nix
     ./git.nix
-    # ./heroic.nix
     ./neovim.nix
     ./rust.nix
     ./wezterm.nix
