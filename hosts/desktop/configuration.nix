@@ -70,8 +70,6 @@
   environment.systemPackages = with pkgs; [
     wget
     curl
-    lua-language-server
-    stylua
     pciutils
     cacert
     openssl

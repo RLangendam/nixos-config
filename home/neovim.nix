@@ -4,29 +4,23 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-
-    plugins = with pkgs.vimPlugins; [
-      nvim-lspconfig
-      nvim-treesitter.withAllGrammars
-    ];
+    viAlias = true;
+    vimAlias = true;
   };
 
   xdg.configFile."nvim".source = ./nvim;
 
   home.packages = with pkgs; [
-    # LSP servers (globaal, behalve Rust toolchain)
-    nil # nix
-    lua-language-server
-    bash-language-server
+    # LSPs
+    rust-analyzer # Rust
+    nil # Nix
+    lua-language-server # Lua
+    bash-language-server # Bash
 
-    # formatters
-    nixfmt
-    stylua
-    shfmt
-    nixdoc
-
-    # tools
-    ripgrep
-    fd
+    # Formatters & Linters
+    rustfmt # Rust
+    alejandra # Nix
+    stylua # Lua
+    shfmt # Bash
   ];
 }

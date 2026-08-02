@@ -99,22 +99,11 @@
     itch
     podman-desktop
     calibre
-    # (pkgs.pidgin.override {
-    #   plugins = [
-    #     pidginPackages.pidgin-otr
-    #     pidginPackages.pidgin-indicator
-    #     (pkgs.pidginPackages.purple-plugin-pack.overrideAttrs (oldAttrs: {
-    #       env = (oldAttrs.env or { }) // {
-    #         NIX_CFLAGS_COMPILE = "${
-    #           oldAttrs.env.NIX_CFLAGS_COMPILE or ""
-    #         } -Wno-error=incompatible-pointer-types";
-    #       };
-    #     }))
-    #     pidginPackages.pidgin-latex
-    #   ];
-    # })
     retroarch-full
     scummvm
+    meld
+    ripgrep
+    fd
   ];
 
   services.flatpak.packages = [
@@ -157,7 +146,6 @@
     ./flatpak.nix
     ./git.nix
     ./neovim.nix
-    ./rust.nix
     ./wezterm.nix
     ./zellij.nix
     ./zsh.nix

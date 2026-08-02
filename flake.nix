@@ -22,7 +22,6 @@
     affinity-nix.url = "github:mrshmllow/affinity-nix";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-
   };
 
   outputs =
@@ -38,15 +37,51 @@
     }@inputs:
     let
       system = "x86_64-linux";
+
+      # Prepare pkgs with your overlays and permitted insecure packages for standalone HM
+      pkgs = import nixpkgs {
+        inherit system;
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = [
+            "electron-39.8.10"
+          ];
+        };
+        overlays = [
+          rust-overlay.overlays.default
+          affinity-nix.overlays.default
+        ];
+      };
     in
     {
+      # Standalone Home Manager configurations
+      homeConfigurations = {
+        "ralph" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./home/ralph.nix
+            nix-flatpak.homeManagerModules.nix-flatpak
+          ];
+        };
+
+        "ramon" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./home/ramon.nix
+            nix-flatpak.homeManagerModules.nix-flatpak
+          ];
+        };
+      };
+
+      # Existing NixOS System Configuration
       nixosConfigurations.ralph-desktop = nixpkgs.lib.nixosSystem {
         inherit system;
 
         specialArgs = { inherit inputs; };
 
         modules = [
-          # Apply rust-overlay via nixpkgs.overlays so modules can still set nixpkgs.config
           (
             { pkgs, ... }:
             {
