@@ -1,8 +1,7 @@
 { pkgs, inputs, ... }:
 
 {
-  home.packages = [
-    pkgs.rust-bin.stable.latest.default
-    pkgs.rust-analyzer
+  home.packages = with pkgs; [
+    rust-bin.stable.latest.default
   ];
 }
