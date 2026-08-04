@@ -17,15 +17,22 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+    -- Tell lazy.nvim to store the lockfile in ~/.local/state/nvim/ where it can write
+    lockfile = vim.fn.stdpath("state") .. "/lazy-lock.json",
+
     spec = {
+        -- Core LazyVim plugins
         { "LazyVim/LazyVim",                          import = "lazyvim.plugins" },
 
+        -- Language Extras
         { import = "lazyvim.plugins.extras.lang.rust" },
         { import = "lazyvim.plugins.extras.lang.nix" },
 
-        { "williamboman/mason.nvim",                  enabled = false },
-        { "williamboman/mason-lspconfig.nvim",        enabled = false },
+        -- Disable Mason
+        { "mason-org/mason.nvim",                     enabled = false },
+        { "mason-org/mason-lspconfig.nvim",           enabled = false },
 
+        -- Load custom plugins from lua/plugins/
         { import = "plugins" },
     },
     defaults = {

@@ -22,5 +22,8 @@
     alejandra # Nix
     stylua # Lua
     shfmt # Bash
+
+    # Treesitter
+    tree-sitter
   ];
 }
