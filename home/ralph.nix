@@ -104,7 +104,26 @@
     meld
     ripgrep
     fd
+    tree
+    atool
+    gnupg
+    pv
+    jq
+    xclip
+    tmux
+    cron
+    sshfs
+    qrencode
+    yt-dlp
+    imagemagickBig
+    fastfetch
+    tldr
   ];
+
+  services.gpg-agent = {
+    enable = true;
+    pinentry.package = pkgs.pinentry-curses;
+  };
 
   services.flatpak.packages = [
     "moe.launcher.an-anime-game-launcher"
