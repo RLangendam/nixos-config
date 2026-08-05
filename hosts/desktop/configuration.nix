@@ -16,11 +16,12 @@
     ../../modules/desktop/steam.nix
     ../../modules/development/sccache.nix
     ../../modules/development/virtualization.nix
-    ../../modules/services/pipewire.nix
-    ../../modules/services/networking.nix
-    ../../modules/services/printing.nix
     ../../modules/services/automount.nix
     ../../modules/services/earlyoom.nix
+    ../../modules/services/networking.nix
+    ../../modules/services/pihole.nix
+    ../../modules/services/pipewire.nix
+    ../../modules/services/printing.nix
     ../../modules/services/syncthing.nix
   ];
 

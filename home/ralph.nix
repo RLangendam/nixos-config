@@ -118,6 +118,7 @@
     imagemagickBig
     fastfetch
     tldr
+    mission-center
   ];
 
   services.gpg-agent = {
@@ -162,6 +163,8 @@
 
   imports = [
     ./cpp.nix
+    ./boinc.nix
+    ./fah.nix
     ./flatpak.nix
     ./git.nix
     ./neovim.nix
