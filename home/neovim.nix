@@ -18,12 +18,11 @@
     bash-language-server # Bash
 
     # Formatters & Linters
-    rustfmt # Rust
-    alejandra # Nix
-    stylua # Lua
-    shfmt # Bash
+    rustfmt
+    nixfmt
+    stylua
+    shfmt
 
-    # Treesitter
     tree-sitter
   ];
 }

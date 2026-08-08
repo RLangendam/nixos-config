@@ -13,7 +13,7 @@
     open = false;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     nvidiaSettings = true;
-    powerManagement.enable = true;
+    powerManagement.enable = false;
   };
 
   hardware.nvidia-container-toolkit.enable = true;

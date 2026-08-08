@@ -129,6 +129,7 @@
   services.flatpak.packages = [
     "moe.launcher.an-anime-game-launcher"
     "com.github.unrud.VideoDownloader"
+    "com.usebottles.bottles"
   ];
 
   programs.firefox.enable = true;
@@ -168,6 +169,7 @@
     ./flatpak.nix
     ./git.nix
     ./neovim.nix
+    ./rust.nix
     ./wezterm.nix
     ./zellij.nix
     ./zsh.nix

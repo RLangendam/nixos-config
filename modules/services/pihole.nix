@@ -36,7 +36,7 @@
       environment = {
         TZ = "europe/Amsterdam";
         FTLCONF_LOCAL_IPV4 = "127.0.0.1";
-        WEBPASSWORD = "";
+        WEBPASSWORD = "pihole";
       };
       volumes = [
         "/var/lib/pihole/etc-pihole:/etc/pihole"

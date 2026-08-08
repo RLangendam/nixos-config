@@ -74,6 +74,7 @@
     pciutils
     cacert
     openssl
+    piper
   ];
 
   programs.zsh.enable = true;
@@ -105,6 +106,8 @@
   nixpkgs.overlays = [
     inputs.rust-overlay.overlays.default
   ];
+
+  services.ratbagd.enable = true;
 
   nix.gc.automatic = true;
 

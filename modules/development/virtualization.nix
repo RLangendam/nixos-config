@@ -8,7 +8,6 @@
     qemu
     uefi-run
     swtpm
-    bottles
     dosfstools
     distrobox
     podman-compose
