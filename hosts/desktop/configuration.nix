@@ -45,6 +45,26 @@
 
   time.timeZone = "Europe/Amsterdam";
 
+  i18n = {
+    # Default fallback language for system processes / console
+    defaultLocale = "en_US.UTF-8";
+
+    supportedLocales = [
+      "en_US.UTF-8/UTF-8"
+      "nl_NL.UTF-8/UTF-8"
+      "pt_BR.UTF-8/UTF-8"
+    ];
+  };
+
+  users.users.anneke = {
+    isNormalUser = true;
+    extraGroups = [
+      "networkmanager"
+      "video"
+      "audio"
+    ];
+  };
+
   users.users.ralph = {
     isNormalUser = true;
     extraGroups = [

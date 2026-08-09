@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   lib,
   ...
@@ -62,8 +61,6 @@
     handbrake
     gearlever
     tor-browser
-    # whatsie
-    # ventoy
     audacity
     shortwave
     clamav
@@ -114,11 +111,24 @@
     cron
     sshfs
     qrencode
+    zbar
     yt-dlp
     imagemagickBig
     fastfetch
     tldr
     mission-center
+    celestia
+    octaveFull
+    sage
+    texliveFull
+    stellarium
+    handbrake
+    kdePackages.akregator
+    texstudio
+    authenticator
+    kdePackages.k3b
+    freerdp
+    remmina
   ];
 
   services.gpg-agent = {
@@ -157,7 +167,7 @@
 
   services.ollama = {
     enable = true;
-    acceleration = "cuda"; # Schakelt CUDA in voor Nvidia GPU's
+    acceleration = "cuda";
   };
 
   home.stateVersion = "26.05";

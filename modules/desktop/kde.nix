@@ -11,6 +11,8 @@
 
   environment.systemPackages = with pkgs; [
     kdePackages.kate
+    kdePackages.ki18n
     kdePackages.dolphin
+    kdePackages.plasma-workspace
   ];
 }

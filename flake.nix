@@ -56,6 +56,15 @@
     {
       # Standalone Home Manager configurations
       homeConfigurations = {
+        "anneke" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./home/anneke.nix
+            nix-flatpak.homeManagerModules.nix-flatpak
+          ];
+        };
+
         "ralph" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = { inherit inputs; };
@@ -102,14 +111,42 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
 
+            home-manager.users.anneke = {
+              home.language = {
+                base = "nl_NL.UTF-8";
+              };
+              xdg.configFile."kdeglobals".text = ''
+                [Translations]
+                LANGUAGE=nl:en_US
+              '';
+              imports = [
+                ./home/anneke.nix
+                nix-flatpak.homeManagerModules.nix-flatpak
+              ];
+            };
             home-manager.users.ralph = {
+              home.language = {
+                base = "en_US.UTF-8";
+                time = "nl_NL.UTF-8";
+                monetary = "nl_NL.UTF-8";
+              };
               imports = [
                 ./home/ralph.nix
                 nix-flatpak.homeManagerModules.nix-flatpak
               ];
             };
             home-manager.users.ramon = {
+              home.language = {
+                base = "pt_BR.UTF-8";
+                time = "nl_NL.UTF-8";
+                monetary = "nl_NL.UTF-8";
+              };
+              xdg.configFile."kdeglobals".text = ''
+                [Translations]
+                LANGUAGE=pt:en_US
+              '';
               imports = [
                 ./home/ramon.nix
                 nix-flatpak.homeManagerModules.nix-flatpak
