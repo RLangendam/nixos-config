@@ -23,7 +23,10 @@
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [
+    "kvm-amd"
+    "nvidia_uvm"
+  ];
   # boot.extraModulePackages = [ "xone" ];
 
   fileSystems."/" = {
@@ -104,19 +107,19 @@
         name = "HP_Laserjet_4050TN";
         location = "Home Office";
         description = "Network Laser Printer";
-        
+
         deviceUri = "socket://192.168.2.100";
-        
+
         # model = "drv:///sample.drv/generic.ppd";
         model = "gutenprint.5.3://hp-lj_4000/expert";
-        
+
         ppdOptions = {
           PageSize = "A4";
           Option1 = "True";
         };
       }
     ];
-    
+
     ensureDefaultPrinter = "HP_Laserjet_4050TN";
   };
 }

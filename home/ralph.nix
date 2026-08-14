@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  blender-bin,
   ...
 }:
 {
@@ -31,7 +32,7 @@
     libresprite
     material-maker
     fontforge-gtk
-    blender
+    blender-bin.packages.${pkgs.stdenv.hostPlatform.system}.default
     git-extras
     git-filter-repo
     mpv

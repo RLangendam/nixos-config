@@ -22,6 +22,8 @@
     affinity-nix.url = "github:mrshmllow/affinity-nix";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+
+    blender-bin.url = "github:edolstra/nix-warez?dir=blender";
   };
 
   outputs =
@@ -33,6 +35,7 @@
       rust-overlay,
       affinity-nix,
       nix-flatpak,
+      blender-bin,
       ...
     }@inputs:
     let
@@ -153,7 +156,10 @@
               ];
             };
 
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+              inherit blender-bin;
+            };
           }
         ];
       };
