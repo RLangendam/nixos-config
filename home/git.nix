@@ -12,4 +12,10 @@
       lfs.enable = true;
     };
   };
+
+  home.packages = with pkgs; [
+    git-extras
+    git-filter-repo
+    lazygit
+  ];
 }

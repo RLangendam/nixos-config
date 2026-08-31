@@ -70,7 +70,10 @@
 
         "ralph" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = {
+            inherit inputs;
+            inherit blender-bin;
+          };
           modules = [
             ./home/ralph.nix
             nix-flatpak.homeManagerModules.nix-flatpak

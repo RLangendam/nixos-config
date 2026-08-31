@@ -14,6 +14,7 @@
     ../../modules/desktop/kde.nix
     ../../modules/desktop/nvidia.nix
     ../../modules/desktop/steam.nix
+    ../../modules/development/nix-ld.nix
     ../../modules/development/sccache.nix
     ../../modules/development/virtualization.nix
     ../../modules/services/automount.nix

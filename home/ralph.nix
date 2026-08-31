@@ -9,11 +9,6 @@
   home.homeDirectory = "/home/ralph";
 
   home.packages = with pkgs; [
-    ripgrep
-    fd
-    eza
-    bat
-    bottom
     thunderbird
     keepassxc
     davinci-resolve
@@ -33,15 +28,9 @@
     material-maker
     fontforge-gtk
     blender-bin.packages.${pkgs.stdenv.hostPlatform.system}.default
-    git-extras
-    git-filter-repo
     mpv
     ffmpeg
-    discord
-    zip
-    unzip
-    rsync
-    pandoc
+    vesktop # discord alternative
     inkscape
     gimp-with-plugins
     vlc
@@ -100,23 +89,10 @@
     retroarch-full
     scummvm
     meld
-    ripgrep
-    fd
-    tree
-    atool
     gnupg
-    pv
-    jq
     xclip
-    tmux
-    cron
-    sshfs
-    qrencode
     zbar
-    yt-dlp
     imagemagickBig
-    fastfetch
-    tldr
     mission-center
     celestia
     octaveFull
