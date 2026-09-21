@@ -52,7 +52,6 @@
     protonup-qt
     steamcmd
     mangohud
-    steam-tui
     #gamescope-wsi # HDR won't work without this
   ];
 

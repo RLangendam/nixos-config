@@ -38,7 +38,6 @@
     kdePackages.phonon-vlc
     qbittorrent
     ldtk
-    aseprite
     tiled
     bash-language-server
     pkgs.affinity-v3
