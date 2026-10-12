@@ -126,6 +126,11 @@
 
   nixpkgs.overlays = [
     inputs.rust-overlay.overlays.default
+    (final: prev: {
+      msitools = prev.msitools.overrideAttrs (old: {
+        doCheck = false;
+      });
+    })
   ];
 
   services.ratbagd.enable = true;

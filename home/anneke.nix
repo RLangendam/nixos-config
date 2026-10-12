@@ -9,7 +9,6 @@
   home.homeDirectory = "/home/anneke";
 
   home.packages = with pkgs; [
-    affinity-v3
     kdePackages.akregator
     (aspellWithDicts (
       dicts: with dicts; [

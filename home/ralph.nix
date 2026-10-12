@@ -40,7 +40,7 @@
     ldtk
     tiled
     bash-language-server
-    pkgs.affinity-v3
+    # pkgs.affinity-v3
     brave
     pika-backup
     digikam
@@ -85,7 +85,7 @@
     itch
     podman-desktop
     calibre
-    retroarch-full
+    # retroarch-full
     scummvm
     meld
     gnupg
